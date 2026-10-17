@@ -1,0 +1,42 @@
+# ==========================================
+# 1. Dependencias (NO se suben nunca a Git)
+# ==========================================
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# 2. Entornos y Credenciales Privadas
+# ==========================================
+# Variables de entorno con contraseñas de BD y claves secretas
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+# Excepción: puedes permitir subir una plantilla de ejemplo
+!.env.example
+
+# ==========================================
+# 3. Compilados y Builds de Producción
+# ==========================================
+dist/
+dist-ssr/
+build/
+*.local
+
+# ==========================================
+# 4. Archivos del Sistema Operativo y Editores
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
