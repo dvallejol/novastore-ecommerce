@@ -7,6 +7,7 @@ import { LandingPage } from './pages/LandingPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { CartPage } from './pages/CartPage';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { WhatsAppChatbot } from './components/WhatsAppChatbot'; // <-- IMPORTAR AQUÍ
 import './assets/styles.css';
 
 export default function App() {
@@ -21,6 +22,8 @@ export default function App() {
             <Route path="/carrito" element={<CartPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
+          {/* Widget flotante interactivo de WhatsApp & IA */}
+          <WhatsAppChatbot />
         </BrowserRouter>
       </CartProvider>
     </AuthProvider>

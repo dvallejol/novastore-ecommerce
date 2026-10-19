@@ -23,7 +23,7 @@ export const AdminDashboard = () => {
     e.preventDefault();
     try {
       await productoHttpRepository.crear(form);
-      setMensaje('✔ Producto guardado directamente en la base de datos.');
+      setMensaje('✔ Producto guardado con éxito directamente en MySQL.');
       setForm({ nombre: '', categoria: 'tecnologia', precio: '', stock: '', imagen: '', descripcion: '' });
     } catch (err) {
       setMensaje(`Error: ${err.message}`);
@@ -32,30 +32,82 @@ export const AdminDashboard = () => {
 
   return (
     <div className="container admin-page">
-      <h2>Panel de Administración - Agregar Producto</h2>
+      <h2>Panel Administrativo — Registrar Nuevo Producto</h2>
+      
       <form onSubmit={handleSubmit} className="admin-form">
-        <label>Nombre:</label>
-        <input type="text" value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} required />
+        <div className="form-field">
+          <label>Nombre del Producto:</label>
+          <input 
+            type="text" 
+            placeholder="Ej. MacBook Pro M3 o Chaqueta Bomber" 
+            value={form.nombre} 
+            onChange={e => setForm({...form, nombre: e.target.value})} 
+            required 
+          />
+        </div>
 
-        <label>Categoría:</label>
-        <select value={form.categoria} onChange={e => setForm({...form, categoria: e.target.value})}>
-          <option value="tecnologia">Tecnología</option>
-          <option value="ropa">Ropa</option>
-        </select>
+        <div className="form-grid-2">
+          <div className="form-field">
+            <label>Categoría:</label>
+            <select value={form.categoria} onChange={e => setForm({...form, categoria: e.target.value})}>
+              <option value="tecnologia">💻 Tecnología</option>
+              <option value="ropa">👕 Ropa & Calzado</option>
+            </select>
+          </div>
 
-        <label>Precio Unitario (COP):</label>
-        <input type="number" value={form.precio} onChange={e => setForm({...form, precio: e.target.value})} required min="1000" />
+          <div className="form-field">
+            <label>Precio Unitario (COP):</label>
+            <input 
+              type="number" 
+              placeholder="50000" 
+              value={form.precio} 
+              onChange={e => setForm({...form, precio: e.target.value})} 
+              required 
+              min="1000" 
+            />
+          </div>
+        </div>
 
-        <label>Stock:</label>
-        <input type="number" value={form.stock} onChange={e => setForm({...form, stock: e.target.value})} required min="1" />
+        <div className="form-grid-2">
+          <div className="form-field">
+            <label>Stock Inicial:</label>
+            <input 
+              type="number" 
+              placeholder="10" 
+              value={form.stock} 
+              onChange={e => setForm({...form, stock: e.target.value})} 
+              required 
+              min="1" 
+            />
+          </div>
 
-        <label>URL Imagen:</label>
-        <input type="url" value={form.imagen} onChange={e => setForm({...form, imagen: e.target.value})} required placeholder="https://..." />
+          <div className="form-field">
+            <label>URL de la Imagen:</label>
+            <input 
+              type="url" 
+              placeholder="https://images.unsplash.com/..." 
+              value={form.imagen} 
+              onChange={e => setForm({...form, imagen: e.target.value})} 
+              required 
+            />
+          </div>
+        </div>
 
-        <label>Descripción:</label>
-        <textarea rows="3" value={form.descripcion} onChange={e => setForm({...form, descripcion: e.target.value})} required />
+        <div className="form-field">
+          <label>Descripción del Producto:</label>
+          <textarea 
+            rows="3" 
+            placeholder="Especificaciones técnicas, materiales, garantía..." 
+            value={form.descripcion} 
+            onChange={e => setForm({...form, descripcion: e.target.value})} 
+            required 
+          />
+        </div>
 
-        <button type="submit" className="btn-primary">Guardar en Base de Datos</button>
+        <button type="submit" className="btn-primary btn-block" style={{ marginTop: '0.8rem' }}>
+          Guardar en Base de Datos MySQL
+        </button>
+
         {mensaje && <p className="status-msg">{mensaje}</p>}
       </form>
     </div>
