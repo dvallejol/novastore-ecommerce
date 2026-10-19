@@ -1153,3 +1153,328 @@ body {
   border-radius: 50%;
   border: 2px solid #0f172a;
 }
+
+/* ===================================================
+   CARRITO DE COMPRAS MODERNO CON MINIATURAS
+   =================================================== */
+.cart-header-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cart-header-title h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.cart-count-badge {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--primary);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.cart-empty-card {
+  text-align: center;
+  background: var(--bg-card);
+  padding: 4rem 2rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  max-width: 550px;
+  margin: 2rem auto;
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cart-empty-card h3 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.cart-empty-card p {
+  color: var(--text-muted);
+}
+
+.cart-grid {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.cart-items-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.cart-table-head {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 40px;
+  padding: 1.2rem 1.8rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-card-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 40px;
+  align-items: center;
+  padding: 1.5rem 1.8rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s ease;
+}
+
+.cart-card-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.cart-item-info {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.cart-thumb-img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #020617;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.cart-card-item:hover .cart-thumb-img {
+  transform: scale(1.06);
+  border-color: var(--primary);
+}
+
+.cart-item-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.cart-item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0.2rem 0;
+  line-height: 1.3;
+}
+
+.cart-item-stock {
+  color: #4ade80;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.cart-price-unit {
+  font-size: 0.95rem;
+  color: var(--text-sub);
+  font-weight: 600;
+}
+
+.cart-qty-controls {
+  display: flex;
+  align-items: center;
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: fit-content;
+  overflow: hidden;
+}
+
+.qty-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-sub);
+  width: 32px;
+  height: 32px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--primary);
+}
+
+.qty-number {
+  padding: 0 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.cart-subtotal-item {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.btn-trash {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-trash:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.cart-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.8rem;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.btn-clear-cart {
+  background: transparent;
+  border: none;
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Resumen del pedido */
+.cart-totals-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cart-totals-box h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-sub);
+  font-size: 0.95rem;
+}
+
+.free-shipping {
+  color: #4ade80;
+  font-weight: 700;
+}
+
+.coupon-box {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.coupon-box input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 0.55rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.coupon-box button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.totals-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+.cart-totals-box .total-highlight {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.cart-totals-box .total-highlight span:last-child {
+  color: var(--primary);
+  font-size: 1.45rem;
+}
+
+.checkout-glow {
+  padding: 0.9rem 1.4rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.secure-badges {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .cart-grid {
+    grid-template-columns: 1fr;
+  }
+  .cart-table-head {
+    display: none;
+  }
+  .cart-card-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
