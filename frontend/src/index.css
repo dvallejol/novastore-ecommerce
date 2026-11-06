@@ -82,6 +82,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -91,6 +92,7 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
@@ -108,4 +110,221 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+/* =========================================================
+   ESTILOS NAVBAR RESPONSIVO (NOVASTORE)
+   ========================================================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
+}
+
+.navbar-logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text-h);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo .logo-accent {
+  color: #38bdf8;
+}
+
+/* Enlaces y acciones en escritorio */
+.navbar-collapse {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  margin-left: 2rem;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #38bdf8;
+}
+
+.admin-link {
+  color: #f59e0b !important;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-badge {
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--accent-bg);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+}
+
+.cart-btn {
+  text-decoration: none;
+  color: var(--text-h);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  background: var(--code-bg);
+  transition: all 0.2s ease;
+}
+
+.cart-btn:hover {
+  border-color: #38bdf8;
+  color: #38bdf8;
+}
+
+.btn-primary,
+.btn-login-nav {
+  background: #38bdf8;
+  color: #030712;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-login-nav:hover {
+  background: #7dd3fc;
+  transform: translateY(-1px);
+}
+
+.btn-secondary,
+.logout-hover {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Botón Hamburguesa (oculto en pantallas grandes) */
+.navbar-hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #38bdf8;
+  cursor: pointer;
+  padding: 0.35rem;
+  line-height: 0;
+  border-radius: 6px;
+}
+
+/* =========================================================
+   ADAPTACIÓN RESPONSIVA PARA MÓVILES (<= 768px)
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .navbar-hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-collapse {
+    display: none; /* Oculto hasta que se active isMenuOpen */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-left: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 1rem;
+    gap: 1.25rem;
+    box-shadow: var(--shadow);
+    box-sizing: border-box;
+  }
+
+  .navbar-collapse.is-active {
+    display: flex; /* Se despliega al hacer click en la hamburguesa */
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .navbar-links a {
+    width: 100%;
+    text-align: left;
+    padding: 0.4rem 0;
+    font-size: 1rem;
+  }
+
+  .navbar-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    width: 100%;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .navbar-actions .btn-login-nav,
+  .navbar-actions .cart-btn,
+  .navbar-actions .btn-secondary {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .navbar-actions .user-badge {
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
