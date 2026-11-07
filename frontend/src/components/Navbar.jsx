@@ -17,6 +17,9 @@ export const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  // Determinar si el usuario logueado es Administrador con soporte para rol_id o string
+  const esAdmin = usuario && (usuario.rol === 'ADMIN' || usuario.rol_id === 1 || String(usuario.rol).toUpperCase() === 'ADMIN');
+
   return (
     <>
       <header className="navbar">
@@ -57,7 +60,7 @@ export const Navbar = () => {
         <div className={`navbar-collapse ${isMenuOpen ? 'is-active' : ''}`}>
           <nav className="navbar-links">
             <Link to="/" onClick={handleCloseMenu}>Inicio</Link>
-            {usuario?.rol === 'ADMIN' && (
+            {esAdmin && (
               <Link to="/admin" className="admin-link" onClick={handleCloseMenu}>
                 ⚙ Panel Admin
               </Link>
@@ -65,16 +68,18 @@ export const Navbar = () => {
           </nav>
 
           <div className="navbar-actions">
+            {/* Carrito de escritorio: Visible siempre */}
+            <Link to="/carrito" className="cart-btn desktop-only" onClick={handleCloseMenu}>
+              🛒 Carrito <span className="cart-pill">{totalItems}</span>
+            </Link>
+
             {usuario ? (
               <>
                 <span className="user-badge">
-                  {usuario.rol === 'ADMIN' ? '👑' : '🛍'} {usuario.nombre} ({usuario.rol})
+                  {esAdmin ? '👑' : '🛍️'} {usuario.nombre} ({esAdmin ? 'ADMIN' : 'CLIENTE'})
                 </span>
-                {/* Carrito de escritorio */}
-                <Link to="/carrito" className="cart-btn desktop-only" onClick={handleCloseMenu}>
-                  🛒 Carrito <span className="cart-pill">{totalItems}</span>
-                </Link>
                 <button
+                  type="button"
                   onClick={() => {
                     cerrarSesion();
                     handleCloseMenu();
@@ -85,17 +90,16 @@ export const Navbar = () => {
                 </button>
               </>
             ) : (
-              <div className="login-quick">
-                <button
-                  onClick={() => {
-                    setIsLoginOpen(true);
-                    handleCloseMenu();
-                  }}
-                  className="btn-primary btn-login-nav"
-                >
-                  Ingresar / Registrarse
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsLoginOpen(true);
+                  handleCloseMenu();
+                }}
+                className="btn-primary btn-login-nav"
+              >
+                Ingresar / Registrarse
+              </button>
             )}
           </div>
         </div>
