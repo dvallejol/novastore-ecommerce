@@ -6,6 +6,8 @@ const path = require('path');
 // 1. Importar rutas
 const productoRoutes = require('./src/routes/productoRoutes');
 const pedidoRoutes = require('./src/routes/pedidoRoutes');
+const authRoutes = require('./src/routes/authRoutes');
+
 
 const app = express();
 
@@ -15,6 +17,7 @@ app.use(express.json());
 // 2. Rutas de la API
 app.use('/api/productos', productoRoutes);
 app.use('/api/pedidos', pedidoRoutes);
+app.use('/api/auth', authRoutes); 
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date() });
