@@ -1,10 +1,11 @@
-// frontend/src/pages/CartPage.jsx
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link, useNavigate } from 'react-router-dom';
+import { FacturaModal } from '../components/FacturaModal'; // Componente de factura
 
 export const CartPage = () => {
+  const navigate = useNavigate();
   const { usuario } = useContext(AuthContext);
   const { 
     items, 
@@ -16,11 +17,51 @@ export const CartPage = () => {
     total 
   } = useContext(CartContext);
 
+  // Estados para procesar el pago y mostrar la factura
+  const [ordenProcesada, setOrdenProcesada] = useState(null);
+  const [cargando, setCargando] = useState(false);
+
   if (!usuario) {
     return <Navigate to="/" replace />;
   }
 
   const totalArticulos = items.reduce((acc, el) => acc + el.cantidad, 0);
+
+  // Función que registra el pedido en MySQL
+  const procesarPago = async () => {
+    if (items.length === 0) return;
+
+    setCargando(true);
+    try {
+      const res = await fetch('/api/pedidos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          usuario_id: usuario.id || null,
+          nombre_cliente: usuario.nombre || 'Cliente NovaStore',
+          email_cliente: usuario.email || 'cliente@novastore.com',
+          items: items,
+          subtotal: subtotal,
+          iva: iva,
+          total: total
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setOrdenProcesada(data.orden);
+        vaciarCarrito();
+      } else {
+        alert(data.mensaje || 'Error al procesar el pedido');
+      }
+    } catch (err) {
+      console.error('Error al conectar con la API de pedidos:', err);
+      alert('Error de conexión al procesar el pago. Revisa el servidor.');
+    } finally {
+      setCargando(false);
+    }
+  };
 
   return (
     <div className="container cart-page">
@@ -148,14 +189,13 @@ export const CartPage = () => {
               <span>${total.toLocaleString('es-CO')} COP</span>
             </div>
 
+            {/* Botón conectado al proceso real de pago */}
             <button 
-              onClick={() => { 
-                alert('¡Compra simulada y procesada con éxito! Se ha generado tu orden de despacho.'); 
-                vaciarCarrito(); 
-              }} 
+              onClick={procesarPago}
+              disabled={cargando}
               className="btn-primary btn-block checkout-glow"
             >
-              🔒 Proceder al Pago Seguro
+              {cargando ? 'Procesando Compra...' : '🔒 Proceder al Pago Seguro'}
             </button>
 
             <div className="secure-badges">
@@ -165,6 +205,17 @@ export const CartPage = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Modal de factura tras completar la orden */}
+      {ordenProcesada && (
+        <FacturaModal 
+          orden={ordenProcesada} 
+          onClose={() => {
+            setOrdenProcesada(null);
+            navigate('/');
+          }} 
+        />
       )}
     </div>
   );
