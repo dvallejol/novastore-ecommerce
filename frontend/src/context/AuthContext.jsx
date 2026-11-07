@@ -8,10 +8,25 @@ export const AuthProvider = ({ children }) => {
     return guardado ? JSON.parse(guardado) : null;
   });
 
+  // Autenticación con datos reales de MySQL (Login y Registro)
+  const iniciarSesion = (userData) => {
+    const userNormalizado = {
+      id: userData.id,
+      nombre: userData.nombre,
+      email: userData.email,
+      rol: userData.rol || (userData.rol_id === 1 ? 'ADMIN' : 'CLIENTE'),
+      rol_id: userData.rol_id || (userData.rol === 'ADMIN' ? 1 : 2)
+    };
+
+    setUsuario(userNormalizado);
+    localStorage.setItem('nova_user', JSON.stringify(userNormalizado));
+  };
+
+  // Mantener loginMock para pruebas rápidas
   const loginMock = (rol) => {
     const userMock = rol === 'ADMIN'
-      ? { id: 1, nombre: 'Admin General', email: 'admin@novastore.com', rol: 'ADMIN' }
-      : { id: 2, nombre: 'Cliente Registrado', email: 'cliente@novastore.com', rol: 'CLIENTE' };
+      ? { id: 1, nombre: 'Admin General', email: 'admin@novastore.com', rol: 'ADMIN', rol_id: 1 }
+      : { id: 2, nombre: 'Cliente Registrado', email: 'cliente@novastore.com', rol: 'CLIENTE', rol_id: 2 };
 
     setUsuario(userMock);
     localStorage.setItem('nova_user', JSON.stringify(userMock));
@@ -23,7 +38,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ usuario, loginMock, cerrarSesion }}>
+    <AuthContext.Provider value={{ 
+      usuario, 
+      iniciarSesion, 
+      login: iniciarSesion, 
+      loginMock, 
+      cerrarSesion 
+    }}>
       {children}
     </AuthContext.Provider>
   );
